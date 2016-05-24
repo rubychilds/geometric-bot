@@ -51,9 +51,6 @@ ctx.fill ()
 ctx.translate( cx, cy);
 radius = -1 * h * 0.5 * 0.80; # Radius 80% of canvas
 
-# ctx.set_source_rgba(192, 0, 0, 0.5)
-# circle( ctx, 200, 200, 160, 9)
-
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
 draw.plot( ctx, 0, 0, 1)
 
