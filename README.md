@@ -1,5 +1,5 @@
 # geometric-bot
-**Python3** experimental bot that generates randomly geometric-like images. **Always WIP**. This is my very first project with Python3 so be merciful with WIP parts or not-so-good-pactices ;)
+**Python3** experimental bot that generates randomly geometric-like images. **Always WIP**. This is my very first project with Python3 so be merciful with WIP parts or _not-so-good-pactices_ ;)
 
 Resulting images are posted in <https://twitter.com/@GeometricBot>
 
