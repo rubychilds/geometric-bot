@@ -10,8 +10,8 @@ def plot (ctx, cx, cy, r):
     ctx.arc(cx, cy, r, 0, 2 * math.pi)
     ctx.fill ()
 
-def circle (ctx, cx, cy, r, sw):
-    ctx.set_line_width(9)
+def circle (ctx, cx, cy, r, sw = 1.0):
+    ctx.set_line_width(sw)
     ctx.arc(cx, cy, r, 0, 2 * math.pi)
     ctx.stroke()
 

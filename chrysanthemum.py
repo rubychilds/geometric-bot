@@ -2,6 +2,7 @@
 import os
 import time
 import math
+import colorsys
 
 if os.name == 'nt': # Is windows
     import cairo
@@ -79,7 +80,11 @@ for i in range(deep):
         ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
         draw.plot(ctx, point[0], point[1], 1)
 
-circles.append(circle)
+    if len(circle) > 0:
+        circles.append(circle)
+        #print(circle)
+
+#print('Total circles:'+circles)
 
 # Current time
 t0 = int(time.time())
@@ -88,11 +93,57 @@ ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
 draw.plot( ctx, 0, 0, 1)
 
 # Draw circles
-for i in range( len(circles), 0, -1 )
+for i in range( len(circles) -1, 0, -1 ):
     tn = int(time.time())
 
     line_alpha = 1 - (i / deep)
 
-    col = utilz.hslLerp(palette[0], palette[1], Math.abs(gV.circles_distance_to_center[i] / gV.radius))
+    col = utilz.hslLerp(palette[0], palette[1], math.fabs(circles_distance_to_center[i] / radius))
+
+    # Draw 6 times
+    for k in range(6):
+
+        ctx.rotate(final_angle)
+        ctx.set_operator(cairo.OPERATOR_SCREEN)
+
+        # Draws all circles in current level
+        for j in range(len(circles[i])):
+
+            grd = cairo.RadialGradient(
+            circles[i][j][0],
+            circles[i][j][1],
+            circles_radius[i-1]*0.64,
+            circles[i][j][0],
+            circles[i][j][1],
+            circles_radius[i-1]
+            )
+
+            grd.add_color_stop_rgba(0, 0.85, 0.108, 0.333, 0.12)
+            grd.add_color_stop_rgba(1, 0.85, 0.108, 0.333, 0.60)
+            rgb = colorsys.hsv_to_rgb( *col )
+            grd.add_color_stop_rgba(0, *rgb, 0.10)
+            grd.add_color_stop_rgba(1, *rgb, 0.75)
+            ctx.set_source(grd)
+
+            draw.plot( ctx, circles[i][j][0], circles[i][j][1], circles_radius[i-1] )
+
+            ctx.set_source_rgba( *rgb, line_alpha )
+            draw.circle( ctx, circles[i][j][0], circles[i][j][1], circles_radius[i-1] );
+
+            # Cover central part of current level of circles
+            if ( i > 1 ):
+                grd_tapa = cairo.RadialGradient(
+                    0,
+                    0,
+                    math.fabs( circles[i][0][1] )*0.78,
+                    0,
+                    0,
+                    math.fabs( circles[i][0][1] )
+                )
+                grd_tapa.add_color_stop_rgba(0, 0.1, 0.1, 0.1, 1.0)
+                grd_tapa.add_color_stop_rgba(1, 0.1, 0.1, 0.1, 0.0)
+                ctx.set_source(grd_tapa)
+                ctx.set_operator(cairo.OPERATOR_SOURCE)
+                draw.plot(ctx, 0, 0, math.fabs( circles[i][0][1] ))
 
 ims.write_to_png("test.png")

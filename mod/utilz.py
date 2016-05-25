@@ -28,7 +28,7 @@ def angleLerp(ang1, ang2, percent):
             ang2 += 360
     # Interpolacion
     ret = (ang1 + ((ang2 - ang1) * percent))
-    if (ret < 0 || ret > 360):
+    if (ret < 0) or (ret > 360):
         ret = ret % 360
     return ret
 
@@ -42,9 +42,9 @@ def hslLerp(hsl1, hsl2, percent):
     l2 = hsl2[2]
     result = []
 
-    result[0] = angleLerp(h1, h2, percent)
-    result[1] = lerp(s1, s2, percent)
-    result[2] = lerp(l1, l2, percent)
+    result.append( angleLerp(h1, h2, percent) )
+    result.append( lerp(s1, s2, percent) )
+    result.append( lerp(l1, l2, percent) )
 
     return result
 
