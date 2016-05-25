@@ -60,7 +60,7 @@ for i in range(deep):
     t = i / deep
     e_func = getattr( eaze, 'in'+easing )
     f = e_func(t)
-    print(t)
+    # print(t)
 
     for j in range(i):
         angle = ( final_angle / i) * j * subangle_factor
@@ -81,7 +81,18 @@ for i in range(deep):
 
 circles.append(circle)
 
+# Current time
+t0 = int(time.time())
+
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
 draw.plot( ctx, 0, 0, 1)
+
+# Draw circles
+for i in range( len(circles), 0, -1 )
+    tn = int(time.time())
+
+    line_alpha = 1 - (i / deep)
+
+    col = utilz.hslLerp(palette[0], palette[1], Math.abs(gV.circles_distance_to_center[i] / gV.radius))
 
 ims.write_to_png("test.png")
