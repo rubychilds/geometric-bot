@@ -42,7 +42,18 @@ def hslLerp(hsl1, hsl2, percent):
     l2 = hsl2[2]
     result = []
 
-    result.append( angleLerp(h1, h2, percent) )
+    diff = math.fabs(h2 - h1)
+    if (diff > 0.5):
+        if (h2 > h1):
+            h1 += 0.5
+        else:
+            h2 += 0.5
+    # Interpolacion
+    h_final = (h1 + ((h2 - h1) * percent))
+    if (h_final < 0) or (h_final > 1.0):
+        h_final = h_final % 1.0
+
+    result.append( h_final )
     result.append( lerp(s1, s2, percent) )
     result.append( lerp(l1, l2, percent) )
 

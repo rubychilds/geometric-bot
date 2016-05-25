@@ -1,5 +1,6 @@
 # #!/usr/bin/env python3
 import os
+import sys
 import time
 import math
 import colorsys
@@ -19,7 +20,7 @@ cx = w / 2
 cy = h / 2
 
 # Flower vars
-radius = -1 * h * 0.5 * 0.80; # Radius 80% of canvas
+radius = -1 * h * 0.5 * 0.95; # Radius 80% of canvas
 deep = 14
 final_angle = 1.0471975511965976 # Math.PI / 3, # 60º
 final_angle_factor = 1
@@ -36,10 +37,8 @@ t0 = 0
 tb = 0
 t_factor = 0
 # colors
-palette = [
-    [ 30,  81, 52 ],
-    [ 220, 77, 48 ]
-]
+# palette = [ [ 30,  81, 52 ], [ 220, 77, 48 ] ]
+palette = [ [ 0.0833,  0.81, 0.52 ], [ 0.6111, 0.77, 0.48 ] ]
 
 # Create surface
 ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
@@ -51,7 +50,7 @@ ctx.set_source_rgb(0.1, 0.1, 0.1)
 ctx.fill ()
 
 # Move 0,0 to center of canvas
-ctx.translate( cx, cy);
+ctx.translate( cx, cy )
 
 # Calculate circles
 last = 0
@@ -86,19 +85,19 @@ for i in range(deep):
 
 #print('Total circles:'+circles)
 
+ims.write_to_png("test.png")
+# sys.exit()
+
 # Current time
 t0 = int(time.time())
 
-ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
-draw.plot( ctx, 0, 0, 1)
-
 # Draw circles
 for i in range( len(circles) -1, 0, -1 ):
-    tn = int(time.time())
 
     line_alpha = 1 - (i / deep)
 
     col = utilz.hslLerp(palette[0], palette[1], math.fabs(circles_distance_to_center[i] / radius))
+    print(col)
 
     # Draw 6 times
     for k in range(6):
@@ -109,14 +108,7 @@ for i in range( len(circles) -1, 0, -1 ):
         # Draws all circles in current level
         for j in range(len(circles[i])):
 
-            grd = cairo.RadialGradient(
-            circles[i][j][0],
-            circles[i][j][1],
-            circles_radius[i-1]*0.64,
-            circles[i][j][0],
-            circles[i][j][1],
-            circles_radius[i-1]
-            )
+            grd = cairo.RadialGradient( circles[i][j][0], circles[i][j][1], circles_radius[i-1]*0.64, circles[i][j][0], circles[i][j][1], circles_radius[i-1] )
 
             grd.add_color_stop_rgba(0, 0.85, 0.108, 0.333, 0.12)
             grd.add_color_stop_rgba(1, 0.85, 0.108, 0.333, 0.60)
@@ -130,20 +122,13 @@ for i in range( len(circles) -1, 0, -1 ):
             ctx.set_source_rgba( *rgb, line_alpha )
             draw.circle( ctx, circles[i][j][0], circles[i][j][1], circles_radius[i-1] );
 
-            # Cover central part of current level of circles
-            if ( i > 1 ):
-                grd_tapa = cairo.RadialGradient(
-                    0,
-                    0,
-                    math.fabs( circles[i][0][1] )*0.78,
-                    0,
-                    0,
-                    math.fabs( circles[i][0][1] )
-                )
-                grd_tapa.add_color_stop_rgba(0, 0.1, 0.1, 0.1, 1.0)
-                grd_tapa.add_color_stop_rgba(1, 0.1, 0.1, 0.1, 0.0)
-                ctx.set_source(grd_tapa)
-                ctx.set_operator(cairo.OPERATOR_SOURCE)
-                draw.plot(ctx, 0, 0, math.fabs( circles[i][0][1] ))
+        # Cover central part of current level of circles
+        if ( i > 1 ):
+            grd_tapa = cairo.RadialGradient( 0, 0, math.fabs( circles[i][0][1] )*0.78, 0, 0, math.fabs( circles[i][0][1] ) )
+            grd_tapa.add_color_stop_rgba(0.0, 0.1, 0.1, 0.1, 1.0)
+            grd_tapa.add_color_stop_rgba(1.1, 0.1, 0.1, 0.1, 0.0)
+            ctx.set_source(grd_tapa)
+            ctx.set_operator(cairo.OPERATOR_OVER)
+            draw.plot(ctx, 0, 0, math.fabs( circles[i][0][1] ))
 
 ims.write_to_png("test.png")
