@@ -24,7 +24,7 @@ cy = h / 2
 radius = -1 * h * 0.5 * 0.80; # Radius 80% of canvas
 final_angle = 1.0471975511965976 # Math.PI / 3, # 60º
 
-deep = random.randint(2, 32)
+deep = random.randint(3, 32)
 print('Deep:' + str(deep))
 subangle_factor = (random.random() * 10) - 5.0
 print('Subangle:' + str(subangle_factor))
