@@ -53,6 +53,7 @@ def render():
     # Create surface
     ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
     ctx = cairo.Context(ims)
+    ctx.save()
 
     # Clear
     ctx.rectangle (0, 0, w, h) # Rectangle(x0, y0, x1, y1)
@@ -138,6 +139,9 @@ def render():
             ctx.set_operator(cairo.OPERATOR_OVER)
             draw.plot(ctx, 0, 0, math.fabs( circles[i][0][1] ))
 
+    # Move 0,0 to top, left corner
+    ctx.restore()
+
     # gp -> generation params
     gp = collections.OrderedDict()
     gp['name'] = 'chrysanthemum'
@@ -147,7 +151,7 @@ def render():
     gp['params']['saf']    = subangle_factor
 
     footline = name.footline( gp )
-    draw.footline( ctx, footline )
+    draw.footline( ctx, footline)
     filename = name.filename( gp )
 
     return ims, filename, footline
