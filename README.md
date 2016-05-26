@@ -6,7 +6,19 @@ Resulting images are posted in <https://twitter.com/@GeometricBot>
 <img src="output/sample-output.png">
 
 # modules used
-`cairo, collections, colorsys, datetime, importlib, math, noise, os, random, random, sys`
+```
+cairo
+collections
+colorsys
+datetime
+importlib
+math
+noise
+os
+random
+yaml -> PyYAML (3.11)
+sys
+```
 
 Modules starting with `mod/algorithm` are the core of each type of geometric deisgn, rest of modules ( `draw, name, tweet` ) are utilities or general functionallities.
 

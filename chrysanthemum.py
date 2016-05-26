@@ -1,7 +1,6 @@
 # #!/usr/bin/env python3
 import os
 import sys
-import time
 import math
 import random
 import colorsys
@@ -93,9 +92,6 @@ for i in range(deep):
 
 # ims.write_to_png("test.png")
 # sys.exit()
-
-# Current time
-t0 = int(time.time())
 
 # Draw circles
 for i in range( len(circles) -1, 0, -1 ):
