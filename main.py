@@ -9,8 +9,8 @@ import importlib
 
 # Graph modules
 drawing_modules = {
-    # 'algorithm_param_eq': 1,
-    # 'algorithm_perlin_brush': 1,
+    'algorithm_param_eq': 1,
+    'algorithm_perlin_brush': 1,
     'algorithm_chrysanthemum': 1
 }
 current, prob = random.choice(list(drawing_modules.items()))
@@ -27,7 +27,7 @@ def main():
     ims, filename, footline = m.render()
     ims.write_to_png( './output/'+filename )
     # Tuitear imagen
-    # tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
+    tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
 
 if __name__ == '__main__':
     print('Main time: '+str(datetime.datetime.now()))
