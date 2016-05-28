@@ -15,6 +15,11 @@ def circle (ctx, cx, cy, r, sw = 1.0):
     ctx.arc(cx, cy, r, 0, 2 * math.pi)
     ctx.stroke()
 
+def line (ctx, x1, y1, x2, y2):
+    ctx.move_to( x1, y1 )
+    ctx.line_to( x2, y2 )
+    ctx.stroke()
+
 # Negative image
 def footline(ctx, text, x=8, y=590):
     ctx.set_source_rgba( 1.0, 1.0, 1.0, 0.5 )

@@ -12,9 +12,9 @@ def lerp (value1, value2, amt):
 
 # Same with a line (x, y)
 def lineLerp (x1, y1, x2, y2, amt):
-  result = { }
-  result.x = x1 + (x2 - x1) * amt
-  result.y = y1 + (y2 - y1) * amt
+  result = { 'x': None, 'y': None }
+  result['x'] = x1 + (x2 - x1) * amt
+  result['y'] = y1 + (y2 - y1) * amt
   return result
 
 # Interpolates between 2 angles, from 0 to 360 degrees
