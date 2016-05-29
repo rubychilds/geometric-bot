@@ -71,3 +71,7 @@ def rotatePoint (cx, cy, px, py, rad):
     nx = (cos * (px - cx)) + (sin * (py - cy)) + cx
     ny = (cos * (py - cy)) - (sin * (px - cx)) + cy
     return [nx, ny]
+
+# Distance between 2 2D points (x1, y1), (x2, y2)
+def distance (x1, y1, x2, y2):
+    return math.hypot( x2 - x1, y2 - y1 )
