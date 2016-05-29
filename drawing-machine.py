@@ -12,6 +12,21 @@ else:
 from mod import draw
 from mod import utilz
 
+# Objects
+class Axis:
+    def __init__ ( self, cx, cy, r, angle_inc = 0 ):
+        self.cx = cx
+        self.cy = cy
+        self.r = r
+        self.angle_current = random.random() * 2 * math.pi
+        self.angle_inc = angle_inc
+    def rotate( self ):
+        self.angle_current += self.angle_inc
+    def getPoint( self ):
+        x = self.cx + self.r * math.cos( self.angle_current )
+        y = self.cy + self.r * math.sin( self.angle_current )
+        return [ x, y ]
+
 w = 600
 h = 600
 cx = w / 2
@@ -41,59 +56,63 @@ ctx.set_source_rgba(0.9, 0, 0, 1.0)
 draw.plot( ctx, cx, cy, 2)
 
 # Axis A
-axis_a_r = random.random() * ( paper_r / 2 ) + paper_r / 10
-axis_a_x = cx - paper_r # - ( ( random.random() *  axis_a_r * 2 ) - axis_a_r )
-axis_a_y = (h - paper_h) / 2 + random.random() * paper_h
-axis_a_init_angle = random.random() * 2 * math.pi
-axis_a_inc_angle = random.random() * 5 - 2.5 # -2.5 / 2.5
+axis_a = Axis(
+    cx - paper_r, # - ( ( random.random() *  axis_a_r * 2 ) - axis_a_r )
+    (h - paper_h) / 2 + random.random() * paper_h,
+    random.random() * ( paper_r / 2 ) + paper_r / 10,
+    random.random() * 5 - 2.5
+)
 
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
-draw.circle( ctx, axis_a_x, axis_a_y, axis_a_r)
+draw.circle( ctx, axis_a.cx, axis_a.cy, axis_a.r)
 ctx.set_source_rgba(0.9, 0, 0, 1.0)
-draw.plot( ctx, axis_a_x, axis_a_y, 2)
+draw.plot( ctx, axis_a.cx, axis_a.cy, 2)
 
-# Axis B
-axis_b_r = random.random() * ( paper_r / 2 ) + paper_r / 10
-axis_b_x = cx + paper_r # - ( ( random.random() *  axis_b_r * 2 ) - axis_b_r )
-axis_b_y = (h - paper_h) / 2 + random.random() * paper_h
-axis_b_init_angle = random.random() * 2 * math.pi
-axis_b_inc_angle = random.random() * 5 - 2.5 # -2.5 / 2.5
+axis_b = Axis(
+    cx + paper_r, # - ( ( random.random() *  axis_a_r * 2 ) - axis_a_r )
+    (h - paper_h) / 2 + random.random() * paper_h,
+    random.random() * ( paper_r / 2 ) + paper_r / 10,
+    random.random() * 5 - 2.5
+)
 
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
-draw.circle( ctx, axis_b_x, axis_b_y, axis_b_r)
+draw.circle( ctx, axis_b.cx, axis_b.cy, axis_b.r)
 ctx.set_source_rgba(0.9, 0, 0, 1.0)
-draw.plot( ctx, axis_b_x, axis_b_y, 2)
+draw.plot( ctx, axis_b.cx, axis_b.cy, 2)
 
 # H line
-h_line_x1 = axis_a_x + axis_a_r * math.cos( axis_a_init_angle )
-h_line_y1 = axis_a_y + axis_a_r * math.sin( axis_a_init_angle )
+pa = axis_a.getPoint()
 ctx.set_source_rgba(0.9, 0, 0, 1.0)
-draw.plot( ctx, h_line_x1, h_line_y1, 2)
-h_line_x2 = axis_b_x + axis_b_r * math.cos( axis_b_init_angle )
-h_line_y2 = axis_b_y + axis_b_r * math.sin( axis_b_init_angle )
+draw.plot( ctx, pa[0], pa[1], 2)
+pb = axis_b.getPoint()
 ctx.set_source_rgba(0.9, 0, 0, 1.0)
-draw.plot( ctx, h_line_x2, h_line_y2, 2)
+draw.plot( ctx, pb[0], pb[1], 2)
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
-draw.line( ctx, h_line_x1, h_line_y1, h_line_x2, h_line_y2 )
-h_line_length = utilz.distance(  h_line_x1, h_line_y1, h_line_x2, h_line_y2 )
+draw.line( ctx, pa[0], pa[1], pb[0], pb[1] )
+axis_distance = utilz.distance( pa[0], pa[1], pb[0], pb[1] )
 
-# center point
-h_line_cp = utilz.lineLerp(  h_line_x1, h_line_y1, h_line_x2, h_line_y2, 0.5 )
+# center axis
+h_line_cp = utilz.lineLerp( pa[0], pa[1], pb[0], pb[1], 0.5 )
 ctx.set_source_rgba(0.9, 0, 0, 1.0)
 draw.plot( ctx, h_line_cp['x'], h_line_cp['y'], 2)
 
-# final point
-final_r = random.random() * h_line_length / 2
-final_init_angle = random.random() * 2 * math.pi
+axis_final = Axis(
+    h_line_cp['x'],
+    h_line_cp['y'],
+    random.random() * axis_distance / 2,
+    0
+)
+
+# final point "pen"
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
-draw.circle( ctx,  h_line_cp['x'], h_line_cp['y'], final_r)
-final_x = h_line_cp['x'] + final_r * math.cos( final_init_angle )
-final_y = h_line_cp['y'] + final_r * math.sin( final_init_angle )
-final_dx = final_x - h_line_cp['x'] # Distancia
-final_dy = final_y - h_line_cp['y'] # Distancia
+draw.circle( ctx, axis_final.cx, axis_final.cy, axis_final.r)
+pen = axis_final.getPoint()
 ctx.set_source_rgba(0.9, 0, 0, 1.0)
-draw.plot( ctx, final_x, final_y, 2)
+draw.plot( ctx, pen[0], pen[1], 2)
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
-draw.line( ctx, h_line_cp['x'], h_line_cp['y'], final_x, final_y )
+draw.line( ctx,axis_final.cx, axis_final.cy, pen[0], pen[1] )
+
+# for i in range(iteraciones):
+
 
 ims.write_to_png("test.png")

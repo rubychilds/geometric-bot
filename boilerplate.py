@@ -34,8 +34,8 @@ ctx.rectangle (0, 0, w, h) # Rectangle(x0, y0, x1, y1)
 ctx.set_source_rgb(0.1, 0.1, 0.1)
 ctx.fill ()
 
-# ctx.set_source_rgba(192, 0, 0, 0.5)
-# circle( ctx, 200, 200, 160, 9)
+ctx.set_source_rgba(192, 0, 0, 0.5)
+draw.circle( ctx, 200, 200, 160, 9)
 
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
 draw.plot( ctx, cx, cy, 1)
