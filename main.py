@@ -9,12 +9,17 @@ import importlib
 
 # Graph modules
 drawing_modules = {
+    # name, probability
     'algorithm_param_eq': 1,
-    'algorithm_perlin_brush': 1,
-    'algorithm_chrysanthemum': 1
+    'algorithm_perlin_brush': 2,
+    'algorithm_chrysanthemum': 0 # Disabled
 }
-current, prob = random.choice(list(drawing_modules.items()))
-print(current)
+temp = []
+for name, prob in drawing_modules.items():
+    if prob > 0:
+        temp.extend( [name] * prob )
+current = random.choice( temp )
+# print(current)
 # sys.exit()
 
 # Import my modules
