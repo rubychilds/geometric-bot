@@ -10,9 +10,10 @@ import importlib
 # Graph modules
 drawing_modules = {
     # name, probability
-    'algorithm_param_eq': 1,
-    'algorithm_perlin_brush': 2,
-    'algorithm_chrysanthemum': 0 # Disabled
+    'algorithm_param_eq': 0,
+    'algorithm_perlin_brush': 0,
+    'algorithm_chrysanthemum': 0, # Disabled
+    'algorithm_drawing_machine': 1 # Disabled
 }
 temp = []
 for name, prob in drawing_modules.items():
