@@ -34,7 +34,7 @@ def main():
     ims.write_to_png( './output/'+filename )
 
     # Tuitear imagen
-    # tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
+    tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
 
 if __name__ == '__main__':
     print('Main time: '+str(datetime.datetime.now()))
