@@ -146,6 +146,8 @@ def render():
     ctx.set_operator(cairo.OPERATOR_SCREEN)
     h = random.random()
 
+    video_framecount = 0
+
     for i in range(iteraciones):
 
         rotation = i * ROT
@@ -168,6 +170,11 @@ def render():
         ctx.stroke()
         last_x = pencil_r[0]
         last_y = pencil_r[1]
+
+        if i % 100 == 0 and True:
+            print( video_framecount )
+            ims.write_to_png( './video/'+str(video_framecount).rjust(8, '0')+'.png' )
+            video_framecount += 1
 
     gp = collections.OrderedDict()
     gp['name'] = 'drawing-machine'
