@@ -1,4 +1,4 @@
-# #!/usr/bin/env python3
+#!/usr/bin/env python3
 import os
 import time
 import math
@@ -21,7 +21,9 @@ cy = h / 2
 window = pyglet.window.Window( w, h )
 
 # ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h) # Simple Surface
-data = (ctypes.c_ubyte * w * h * 4)()
+# ctx = cairo.Context(ims)
+
+data = (ctypes.c_ubyte * (w * h * 4))()
 stride = w * 4
 ims = cairo.ImageSurface.create_for_data( data, cairo.FORMAT_ARGB32, w, h, stride)
 ctx = cairo.Context(ims)
@@ -34,8 +36,9 @@ ctx.rectangle (0, 0, w, h) # Rectangle(x0, y0, x1, y1)
 ctx.set_source_rgb(0.1, 0.1, 0.1)
 ctx.fill ()
 
-ctx.set_source_rgba(192, 0, 0, 0.5)
+ctx.set_source_rgba(1.0, 1.0, 1.0, 0.5)
 draw.circle( ctx, 200, 200, 160, 9)
+ctx.stroke ()
 
 ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
 draw.plot( ctx, cx, cy, 1)
@@ -44,9 +47,9 @@ ims.write_to_png("test.png")
 
 @window.event
 def on_draw():
-    ctx.rectangle (0, 0, w, h) # Rectangle(x0, y0, x1, y1)
-    ctx.set_source_rgb(0.1, 0.1, 0.1)
-    ctx.fill()
+    # ctx.rectangle (0, 0, w, h) # Rectangle(x0, y0, x1, y1)
+    # ctx.set_source_rgb(0.1, 0.1, 0.1)
+    # ctx.fill()
 
     ctx.set_source_rgba(0.9, 0, 0, 1.0)
     draw.plot( ctx, cx, cy, 1)
@@ -68,8 +71,5 @@ def on_draw():
     pyglet.gl.glTexCoord2f(0.0, 0.0)
     pyglet.gl.glVertex2i(0, h )
     pyglet.gl.glEnd()
-
-    ctx.set_source_rgb(1, 0, 0)
-    ctx.paint()
 
 pyglet.app.run()
