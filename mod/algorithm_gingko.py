@@ -3,6 +3,7 @@ import os
 import time
 import math
 import random
+import collections
 from noise import pnoise1, pnoise2
 
 if os.name == 'nt': # Is windows
@@ -10,9 +11,12 @@ if os.name == 'nt': # Is windows
 else:
     import cairocffi as cairo
 
-from mod import draw
-from mod.colz import *
+from . import draw
+from . import name
+from . import utilz
+from mod.colz  import *
 
+# Global Vars
 w = 600
 h = 600
 cx = w / 2
@@ -21,7 +25,6 @@ cy = h / 2
 col = Colz()
 col.setHsla( random.randint(0, 359), 51, 50, 0.25)
 
-num_of_arms = random.randint(2, 9)
 
 ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h) # Simple Surface
 ctx = cairo.Context(ims)
@@ -35,6 +38,9 @@ ctx.set_operator(cairo.OPERATOR_OVER)
 ctx.set_operator(cairo.OPERATOR_SCREEN)
 ctx.set_line_width(1.0)
 
+num_of_arms = random.randint(2, 9)
+
+# Objects
 class Arm:
     def __init__ (self, cx, cy):
         self.cx = cx
@@ -100,17 +106,34 @@ class Arm:
             self.prev_y = self.current_y
             # draw.line( ctx, self.cx, self.cy, self.cx + 30, self.cy )
 
-arm1 = Arm( 0, 0 )
-ctx.save()
-for i in range(num_of_arms):
-    ctx.save()
-    ctx.translate(cx, cy)
-    ctx.rotate( 2 * math.pi / num_of_arms * i )
-    ctx.translate(-cx, -cy)
-    arm1.render( ctx )
-    ctx.restore()
-print(num_of_arms)
-# ctx.set_source_rgba(0.9, 0.9, 0.9, 0.5)
-# draw.plot( ctx, cx, cy, 1)
+def render():
 
-ims.write_to_png("test.png")
+    arm1 = Arm( 0, 0 )
+
+    ctx.save()
+    for i in range(num_of_arms):
+        ctx.save()
+        ctx.translate(cx, cy)
+        ctx.rotate( 2 * math.pi / num_of_arms * i )
+        ctx.translate(-cx, -cy)
+        arm1.render( ctx )
+        ctx.restore()
+
+    # ims.write_to_png("test.png")
+
+    gp = collections.OrderedDict()
+    gp['name'] = 'gingko'
+    gp['params'] = collections.OrderedDict()
+    gp['params']['a'] = num_of_arms
+    gp['params']['s'] = arm1.segments
+    gp['params']['d'] = arm1.dis
+    gp['params']['w'] = arm1.segment_w
+    gp['params']['ns'] = arm1.noise_seed
+    gp['params']['np'] = arm1.noise_speed
+    gp['params']['nb'] = arm1.noise_base
+
+    footline = name.footline( gp )
+    draw.footline( ctx, footline)
+    filename = name.filename( gp )
+
+    return ims, filename, footline

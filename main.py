@@ -10,10 +10,11 @@ import importlib
 # Graph modules
 drawing_modules = {
     # name, probability
+    # 'algorithm_chrysanthemum': 0, # Disabled
     # 'algorithm_param_eq': 1,
     # 'algorithm_perlin_brush': 1,
-    # 'algorithm_chrysanthemum': 0, # Disabled
-    'algorithm_drawing_machine': 2
+    # 'algorithm_drawing_machine': 2,
+    'algorithm_gingko': 2,
 }
 temp = []
 for name, prob in drawing_modules.items():
@@ -34,6 +35,8 @@ def main():
     ims.write_to_png( './output/'+filename )
 
     # Tuitear imagen
+    print(filename)
+    print(footline)
     tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
 
 if __name__ == '__main__':
