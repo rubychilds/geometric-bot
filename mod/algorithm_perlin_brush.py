@@ -13,6 +13,7 @@ else:
 
 from . import draw
 from . import name
+from . import bitmap
 
 def render():
     w = 480
@@ -123,7 +124,7 @@ def render():
     filename = name.filename( gp )
 
     # invert image
-    if int(random.random() * 4) == 0:
-        draw.negative( ims_rotated )
+    if int(random.random() * 2) == 0:
+        bitmap.negative( ims_rotated )
 
     return ims_rotated, filename, footline

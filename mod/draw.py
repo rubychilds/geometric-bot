@@ -30,11 +30,3 @@ def footline(ctx, text, x=8, y=590):
     ctx.set_antialias(cairo.ANTIALIAS_GRAY)
     ctx.move_to( x, y)
     ctx.show_text('@GeometricBot | '+text )
-
-# Negative image
-def negative(surface):
-    buf = surface.get_data()
-    for i in range(0,len(buf),4):
-        buf[i]   = 255 - buf[i]
-        buf[i+1] = 255 - buf[i+1]
-        buf[i+2] = 255 - buf[i+2]

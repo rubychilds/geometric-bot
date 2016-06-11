@@ -11,9 +11,9 @@ import importlib
 drawing_modules = {
     # name, probability
     # 'algorithm_chrysanthemum': 0, # Disabled
-    # 'algorithm_param_eq': 1,
-    # 'algorithm_perlin_brush': 1,
-    # 'algorithm_drawing_machine': 2,
+    'algorithm_param_eq': 1,
+    'algorithm_perlin_brush': 1,
+    'algorithm_drawing_machine': 2,
     'algorithm_gingko': 2,
 }
 temp = []

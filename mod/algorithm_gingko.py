@@ -14,6 +14,7 @@ else:
 from . import draw
 from . import name
 from . import utilz
+from . import bitmap
 from mod.colz  import *
 
 # Global Vars
@@ -25,23 +26,13 @@ cy = h / 2
 col = Colz()
 col.setHsla( random.randint(0, 359), 51, 50, 0.25)
 
-
 ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h) # Simple Surface
 ctx = cairo.Context(ims)
 
-# Clear
-ctx.rectangle (0, 0, w, h) # Rectangle(x0, y0, x1, y1)
-ctx.set_source_rgb(0.1, 0.1, 0.1)
-ctx.fill ()
-
-ctx.set_operator(cairo.OPERATOR_OVER)
-ctx.set_operator(cairo.OPERATOR_SCREEN)
-ctx.set_line_width(1.0)
-
-num_of_arms = random.randint(2, 9)
+num_of_branches = random.randint(2, 9)
 
 # Objects
-class Arm:
+class Branch:
     def __init__ (self, cx, cy):
         self.cx = cx
         self.cy = cy
@@ -52,8 +43,10 @@ class Arm:
         self.noise_seed = random.random() * 10.0
         self.noise_speed = 4.0 + ( random.random() * 6.0 )
         self.noise_base = random.randint(1, 16)
+        self.alpha_correction = 1.0
+        self.rotate_hue = random.randint( 200, 4000 )
 
-        if num_of_arms < 4:
+        if num_of_branches < 4:
             self.segment_w *= 3
 
     def render(self, ctx):
@@ -84,8 +77,8 @@ class Arm:
 
             self.segment_w_current = self.segment_w * pn1 * 2
 
-            col.a = 0.5 + (pn1 * 0.5)
-            col.rotateHue( pn1 / random.randint( 200, 4000) )
+            col.a = ( 0.5 + ( pn1 * 0.5 ) ) * self.alpha_correction
+            col.rotateHue( pn1 / self.rotate_hue )
             # col.setSat( 0.0 )
             ctx.set_source_rgba( *col.rgba)
             # draw.plot( ctx, self.current_x, self.current_y, 1)
@@ -106,31 +99,53 @@ class Arm:
             self.prev_y = self.current_y
             # draw.line( ctx, self.cx, self.cy, self.cx + 30, self.cy )
 
-def render():
+gingko = Branch( 0, 0 )
 
-    arm1 = Arm( 0, 0 )
+def renderBranches( ctx, gingko ):
+    # Clear
+    ctx.set_operator(cairo.OPERATOR_OVER)
+    ctx.rectangle (0, 0, w, h) # Rectangle(x0, y0, x1, y1)
+    ctx.set_source_rgb(0.1, 0.1, 0.1)
+    ctx.fill ()
 
-    ctx.save()
-    for i in range(num_of_arms):
+    # ctx.set_operator(cairo.OPERATOR_OVER)
+    ctx.set_operator(cairo.OPERATOR_SCREEN)
+    ctx.set_line_width(1.0)
+
+    # ctx.save()
+    for i in range(num_of_branches):
         ctx.save()
         ctx.translate(cx, cy)
-        ctx.rotate( 2 * math.pi / num_of_arms * i )
+        ctx.rotate( 2 * math.pi / num_of_branches * i )
         ctx.translate(-cx, -cy)
-        arm1.render( ctx )
+        gingko.render( ctx )
         ctx.restore()
 
+def render( tries = 0 ):
+
+    renderBranches( ctx, gingko )
+
     # ims.write_to_png("test.png")
+    image_luminance = bitmap.getLuminanceMedia( ims )
+    print( 'LUMINANCE: '+str( image_luminance ) )
+    # ims.write_to_png( 'test_'+str(tries)+'.png' )
+
+    if image_luminance > 0.77:
+        print('Alpha before: '+str(gingko.alpha_correction))
+        gingko.alpha_correction -= 0.22
+        print('Alpha after: '+str(gingko.alpha_correction))
+        render( 1 )
 
     gp = collections.OrderedDict()
     gp['name'] = 'gingko'
     gp['params'] = collections.OrderedDict()
-    gp['params']['a'] = num_of_arms
-    gp['params']['s'] = arm1.segments
-    gp['params']['d'] = arm1.dis
-    gp['params']['w'] = arm1.segment_w
-    gp['params']['ns'] = arm1.noise_seed
-    gp['params']['np'] = arm1.noise_speed
-    gp['params']['nb'] = arm1.noise_base
+    gp['params']['a'] =  num_of_branches
+    gp['params']['s'] =  gingko.segments
+    gp['params']['d'] =  gingko.dis
+    gp['params']['w'] =  gingko.segment_w
+    gp['params']['ns'] = gingko.noise_seed
+    gp['params']['np'] = gingko.noise_speed
+    gp['params']['nb'] = gingko.noise_base
 
     footline = name.footline( gp )
     draw.footline( ctx, footline)
