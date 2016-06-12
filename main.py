@@ -37,7 +37,7 @@ def main():
     # Tuitear imagen
     print(filename)
     print(footline)
-    tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
+    # tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
 
 if __name__ == '__main__':
     print('Main time: '+str(datetime.datetime.now()))
