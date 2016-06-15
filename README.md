@@ -3,7 +3,7 @@
 
 Resulting images are posted in <https://twitter.com/@GeometricBot>
 
-<img src="screenshots.png">
+<img src="screenshot.png">
 
 # modules used
 ```
