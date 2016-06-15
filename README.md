@@ -20,7 +20,7 @@ yaml -> PyYAML (3.11)
 sys
 ```
 
-Modules starting with `mod/algorithm` are the core of each type of geometric deisgn, rest of modules ( `draw, name, tweet` ) are utilities or general functionallities.
+Modules starting with `mod/algorithm` are the core of each type of geometric design, rest of modules ( `draw, name, tweet` ) are utilities or general functionalities.
 
 # config
 The config settings and API keys are stored in the `config.yml` in the root of the project, a `config.yml.sample` is provided.
