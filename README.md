@@ -1,28 +1,18 @@
 # geometric-bot
-**Python3** experimental bot that generates randomly geometric-like images. **Always WIP**. This is my very first project with Python3 so be merciful with WIP parts or _not-so-good-pactices_ ;)
+**Python3** experimental bot that generates randomly geometric-like images. **Always WIP**. This is my very first project with Python3 so be merciful with WIP parts, _spaguetti code_ or _not-so-good-pactices_ this is a project to develop fast ideas, not _state of the art_ code ;)
 
 Resulting images are posted in <https://twitter.com/@GeometricBot>
 
 <img src="screenshot.png">
 
 # modules used
-```
-cairo
-collections
-colorsys
-datetime
-importlib
-math
-noise
-os
-random
-yaml -> PyYAML (3.11)
-sys
-```
 
-Modules starting with `mod/algorithm` are the core of each type of geometric design, rest of modules ( `draw, name, tweet` ) are utilities or general functionalities.
+For the modules you need to install in order to run GeometricBot by your own are in the `requirements.txt`.
+
+Modules starting with `mod/algorithm` are the core of each type of geometric design, rest of modules ( `draw, name, tweet, colz` ) are utilities or general functionalities.
 
 # config
+
 The config settings and API keys are stored in the `config.yml` in the root of the project, a `config.yml.sample` is provided.
 
 # license
