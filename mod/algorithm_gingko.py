@@ -6,10 +6,7 @@ import random
 import collections
 from noise import pnoise1, pnoise2
 
-if os.name == 'nt': # Is windows
-    import cairo
-else:
-    import cairocffi as cairo
+import cairocffi as cairo
 
 from . import draw
 from . import name

@@ -11,11 +11,11 @@ import importlib
 drawing_modules = {
     # name, probability
     # 'algorithm_chrysanthemum': 0, # Disabled
-    'algorithm_param_eq': 1,
+    # 'algorithm_param_eq': 1,
     'algorithm_perlin_brush': 1,
-    'algorithm_drawing_machine': 2,
-    'algorithm_gingko': 2,
-    'algorithm_zircles': 3,
+    # 'algorithm_drawing_machine': 2,
+    # 'algorithm_gingko': 2,
+    # 'algorithm_zircles': 3,
 }
 temp = []
 for name, prob in drawing_modules.items():
@@ -38,7 +38,7 @@ def main():
     # Tuitear imagen
     print(filename)
     print(footline)
-    tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
+    #tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
 
 if __name__ == '__main__':
     print('Main time: '+str(datetime.datetime.now()))

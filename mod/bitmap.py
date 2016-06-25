@@ -3,10 +3,7 @@ import sys
 import math
 import struct
 
-if os.name == 'nt': # Is windows
-    import cairo
-else:
-    import cairocffi as cairo
+import cairocffi as cairo
 
 # Negative image
 # ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
@@ -15,9 +12,24 @@ else:
 def negative(surface):
     buf = surface.get_data()
     for i in range(0,len(buf),4):
-        buf[i]   = 255 - buf[i]
-        buf[i+1] = 255 - buf[i+1]
-        buf[i+2] = 255 - buf[i+2]
+        r = buf[i]
+        if isinstance( r, bytes ):
+            r = int.from_bytes( r, byteorder='big' )
+        r = 255 - r
+
+        g = buf[i+1]
+        if isinstance( g, bytes ):
+            g = int.from_bytes( g, byteorder='big' )
+        g = 255 - g
+
+        b = buf[i+2]
+        if isinstance( b, bytes ):
+            b = int.from_bytes( b, byteorder='big' )
+        b = 255 - b
+
+        buf[i]   = struct.pack("B", r)
+        buf[i+1] = struct.pack("B", g)
+        buf[i+2] = struct.pack("B", b)
 
 def bytes2int(str):
     return int(str.encode('hex'), 16)

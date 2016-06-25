@@ -7,10 +7,7 @@ import random
 import colorsys
 import collections
 
-if os.name == 'nt': # Is windows
-    import cairo
-else:
-    import cairocffi as cairo
+import cairocffi as cairo
 
 from . import draw
 from . import name

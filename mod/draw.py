@@ -1,10 +1,7 @@
 import os
 import math
 
-if os.name == 'nt': # Is windows
-    import cairo
-else:
-    import cairocffi as cairo
+import cairocffi as cairo
 
 def plot (ctx, cx, cy, r):
     ctx.arc(cx, cy, r, 0, 2 * math.pi)
