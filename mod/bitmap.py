@@ -126,6 +126,9 @@ def levels( surface, options ):
         buf[i+2] = struct.pack("B", int(b))
 
 # Convert image to grayscale
+# ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
+# ctx = cairo.Context(ims)
+# bitmap.grayscale( ims )
 def grayscale( surface, weighted = True ):
     buf = surface.get_data()
     for i in range(0,len(buf),4):
