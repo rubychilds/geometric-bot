@@ -3,11 +3,11 @@ import os
 import sys
 import math
 import random
-from noise import pnoise1, pnoise2
 import cairocffi as cairo
 
 from mod import draw
 from mod import utilz
+from mod import bitmap
 from mod.colz import *
 
 w = 520
@@ -170,5 +170,7 @@ ctx_final.set_source_rgb( 0.7, 0.7, 0.7 )
 ctx_final.rectangle (40, 40, 520, 520)
 ctx.set_line_width(2.0)
 ctx_final.stroke()
+
+bitmap.forceAlphaPixel( ims_final )
 
 ims_final.write_to_png("dust.png")

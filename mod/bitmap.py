@@ -150,3 +150,12 @@ def grayscale( surface, weighted = True ):
         buf[i]   = struct.pack("B", int( avg ) )
         buf[i+1] = struct.pack("B", int( avg ) )
         buf[i+2] = struct.pack("B", int( avg ) )
+
+# Sets alpha of the last pixel of image to alpha = 250
+# This forces Twitter to keeps the image as PNG24 instead of converting to JPG
+# ims = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
+# ctx = cairo.Context(ims)
+# bitmap.forceAlphaPixel( ims )
+def forceAlphaPixel( surface ):
+    buf = surface.get_data()
+    buf[len(buf)-1] = struct.pack("B", 254 )
