@@ -1,7 +1,12 @@
 import os
 import sys
+import json
 import math
 import struct
+import collections
+
+from PIL import Image
+from PIL import PngImagePlugin
 
 import cairocffi as cairo
 
@@ -159,3 +164,15 @@ def grayscale( surface, weighted = True ):
 def forceAlphaPixel( surface ):
     buf = surface.get_data()
     buf[len(buf)-1] = struct.pack("B", 254 )
+
+def readMetadate( filename ):
+    im = Image.open( filename )
+    data = json.loads( im.info, object_pairs_hook=collections.OrderedDict)
+    return data
+
+def writeMetadate( filename, data, key = 'gb_params' ):
+    im = Image.open( filename )
+    meta = PngImagePlugin.PngInfo()
+    json_data = json.dumps( data )
+    meta.add_text( key, json_data)
+    im.save( filname, "PNG", pnginfo=meta )

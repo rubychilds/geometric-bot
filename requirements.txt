@@ -1,0 +1,11 @@
+cairocffi==0.7.2
+cffi==1.7.0
+noise==1.2.2
+oauthlib==1.1.2
+py3exiv2==0.1.0
+pycparser==2.14
+pyglet==1.2.4
+PyYAML==3.11
+requests==2.10.0
+requests-oauthlib==0.6.1
+TwitterAPI==2.4.1
