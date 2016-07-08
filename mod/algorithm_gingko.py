@@ -12,7 +12,7 @@ from . import draw
 from . import name
 from . import utilz
 from . import bitmap
-from mod.colz  import *
+from mod.colz import *
 
 # Global Vars
 w = 600

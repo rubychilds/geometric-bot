@@ -19,9 +19,9 @@ def line (ctx, x1, y1, x2, y2):
 
 # Negative image
 def footline(ctx, text, x=8, y=590):
-    ctx.set_source_rgba( 1.0, 1.0, 1.0, 0.8 )
-    ctx.set_operator(cairo.OPERATOR_OVER)
-    # ctx.set_operator(cairo.OPERATOR_DIFFERENCE)
+    ctx.set_source_rgba( 1.0, 1.0, 1.0, 0.6 )
+    #ctx.set_operator(cairo.OPERATOR_OVER)
+    ctx.set_operator(cairo.OPERATOR_DIFFERENCE)
     ctx.select_font_face("Hack", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
     ctx.set_font_size(10)
     ctx.set_antialias(cairo.ANTIALIAS_GRAY)

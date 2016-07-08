@@ -6,16 +6,18 @@ import sys
 import random
 import datetime
 import importlib
+from mod import bitmap
 
 # Graph modules
 drawing_modules = {
     # name, probability
     # 'algorithm_chrysanthemum': 0, # Disabled
-    'algorithm_param_eq': 1,
-    'algorithm_perlin_brush': 1,
-    'algorithm_drawing_machine': 2,
-    'algorithm_gingko': 2,
-    'algorithm_zircles': 3,
+    # 'algorithm_param_eq': 1,
+    # 'algorithm_perlin_brush': 1,
+    # 'algorithm_drawing_machine': 2,
+    # 'algorithm_gingko': 2,
+    # 'algorithm_zircles': 3,
+    'algorithm_dust': 4,
 }
 temp = []
 for name, prob in drawing_modules.items():
@@ -33,12 +35,13 @@ from mod import tweet
 def main():
     # Launch render module
     ims, filename, footline = m.render()
+    bitmap.forceAlphaPixel( ims ) # Force last pixel with alpha
     ims.write_to_png( './output/'+filename )
 
     # Tuitear imagen
     print(filename)
     print(footline)
-    #tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
+    tweet.withImage( './output/'+filename, footline+' #generative #geometric #ProceduralArt #python #bot' )
 
 if __name__ == '__main__':
     print('Main time: '+str(datetime.datetime.now()))
