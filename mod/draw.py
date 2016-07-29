@@ -3,8 +3,8 @@ import math
 
 import cairocffi as cairo
 
-def plot (ctx, cx, cy, r):
-    ctx.arc(cx, cy, r, 0, 2 * math.pi)
+def plot (ctx, cx, cy, r = 2.0):
+    ctx.arc(cx, cy, r, 0, 2.0 * math.pi)
     ctx.fill ()
 
 def circle (ctx, cx, cy, r, sw = 1.0):

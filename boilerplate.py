@@ -2,12 +2,17 @@
 import os
 import time
 import math
+import pprint
 import pyglet
 import ctypes
 
 import cairocffi as cairo
 
 from mod import draw
+
+pp = pprint.PrettyPrinter(indent=4)
+p  = pp.pprint
+# p ( whatever )
 
 w = 600
 h = 600

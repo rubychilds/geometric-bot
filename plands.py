@@ -21,7 +21,7 @@ w = 334
 h = 334
 cx = w / 2
 cy = h / 2
-scale = 50
+scale = 150
 
 ims_d = cairo.ImageSurface(cairo.FORMAT_ARGB32, w * 2, h * 2)
 ctx_d = cairo.Context(ims_d)
@@ -57,12 +57,16 @@ for i in range(0,len(buf),4):
 
     hsl = Colz.rgbToHsl( b, g, r )
     sw = max(0.5, 5 * hsl[0]) # Stroke width
-    len_ = max(10, scale * hsl[1]) # line length
+    len_ = max(10, scale * hsl[2]) # line length
 
-    angle = (hsl[1] * math.pi * 2)
+    angle = math.pi / 2
+    # angle = (hsl[1] * math.pi * 2)
     #angle = hsl[1] * 2 * math.pi
-    x2 = x1 + len_ * math.cos( angle )
-    y2 = y1 + len_ * math.sin( angle )
+
+    # y2 = y1 + len_ * math.sin( angle )
+    # x2 = x1 + len_ * math.cos( angle )
+    y2 = y1 + len_
+    x2 = x1
 
     # ctx_d.set_line_width( sw )
     # ctx_d.set_source_rgba( 0.0, 0.0, 0.0, 0.15 )
