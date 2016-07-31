@@ -283,7 +283,7 @@ class Colz:
                 g = m
                 b = mid2
 
-            return [ r, g, b ]
+        return [ r, g, b ]
 
     @staticmethod
     def rgbToHsl( r, g = 0.0, b = 0.0 ):
